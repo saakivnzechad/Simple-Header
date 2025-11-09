@@ -73,7 +73,7 @@ To set up and run this project locally, follow these steps:
 
 1.  **Clone the repository:**
     ```bash
-    git clone [REPO_URL]
+    git clone https://github.com/saakivnzechad/Simple-Header
     cd simple-header
     ```
 2.  **Install dependencies:**
