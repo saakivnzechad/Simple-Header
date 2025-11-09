@@ -1,1 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap'); /*roboto font. Only bold not italic*/
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap'); /*inter tight font. Full weights*/
+
 @import "tailwindcss";
+@tailwind utilities;
+
+@theme {
+  /* deleted a native breakpoints */
+  --breakpoint-*: initial;
+  
+  /* custom breakpoints */
+  --breakpoint-mobile: 23.75rem;
+  --breakpoint-tablet: 64rem;
+  --breakpoint-desktop: 108rem;
+
+  /* custom fonts */
+  --font-roboto: "Roboto", sans-serif; 
+  --font-inter: "Inter Tight", sans-serif;
+
+  /* custom colors palette */
+  --color-link-inactive: #222222;
+  --color-background: #011126;
+  --color-accient: #173EEE;
+
+  /* custom letter-spacing values */
+  --tracking-1: 0.02em;
+  --tracking-2: 0.04em;
+
+  /* custom values instead of magic values for this design system */
+  --text-nav: 0.9375rem;
+  --spacing-nav: 1.4375rem;
+}
