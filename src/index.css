@@ -1,32 +1,102 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap'); /*roboto font. Only bold not italic*/
-@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap'); /*inter tight font. Full weights*/
+/**
+ * @file Global styles and Tailwind theme definitions.
+ * @author Danil Klimov
+ * @version 1.0.1
+ *
+ * MIT License
+ * Copyright (c) 2025 Danil Klimov
+ *
+ * Full license text available in the LICENSE file.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap');
 
 @import "tailwindcss";
 @tailwind utilities;
 
 @theme {
-  /* deleted a native breakpoints */
-  --breakpoint-*: initial;
-  
-  /* custom breakpoints */
-  --breakpoint-mobile: 23.75rem;
-  --breakpoint-tablet: 64rem;
-  --breakpoint-desktop: 108rem;
+ --breakpoint-*: initial;
+ 
+ /* Viewport Breakpoints */
+ --breakpoint-mobile: 23.75rem;
+ --breakpoint-tablet: 64rem;
+ --breakpoint-desktop: 108rem;
 
-  /* custom fonts */
-  --font-roboto: "Roboto", sans-serif; 
-  --font-inter: "Inter Tight", sans-serif;
+ /* Font Families */
+ --font-roboto: "Roboto", sans-serif; 
+ --font-inter: "Inter Tight", sans-serif;
 
-  /* custom colors palette */
-  --color-link-inactive: #222222;
-  --color-background: #011126;
-  --color-accient: #173EEE;
+ /* Color Palette */
+ --color-link-inactive: #222222;
+ --color-background: #011126;
+ --color-accient: #173EEE;
+ --color-divider: rgb(255 255 255 / 0.4);
+ --color-blur-blue: #0077FE;
+ --color-blur-purple: #6F00FF;
 
-  /* custom letter-spacing values */
-  --tracking-1: 0.02em;
-  --tracking-2: 0.04em;
+ /* Letter Spacing (Tracking) */
+ --tracking-1: 0.02em;
+ --tracking-2: 0.04em;
+ --tracking-menu-main: -0.01em;
 
-  /* custom values instead of magic values for this design system */
-  --text-nav: 0.9375rem;
-  --spacing-nav: 1.4375rem;
+ /* Typography (Font Sizes) */
+ --text-nav: 0.9375rem;
+ --text-menu-main: 3.75rem;
+ --text-menu-mobile: 1.875rem;
+ --text-submenu-desktop: 1.5rem;
+ --text-submenu-site: 2rem;
+ --text-footer-mobile: 0.875rem;
+ --text-footer-desktop: 1.25rem;
+ 
+ /* Spacing & Layout */
+ --spacing-nav: 1.4375rem;
+ --spacing-menu-close-top: 2.125rem;
+ --spacing-menu-close-right: 1.875rem;
+ --spacing-menu-close: 2.875rem;
+ --spacing-menu-nav-top: 5.0625rem;
+ --spacing-menu-nav-top-mobile: 1.25rem;
+ --spacing-menu-nav-right: 3.75rem;
+ --spacing-menu-right: 11.25rem;
+ --spacing-menu-items: 1.25rem;
+ --spacing-menu-arrow: 1.5rem;
+ --spacing-submenu-top: 5.75rem;
+ --spacing-submenu-left: 4rem;
+ --spacing-submenu-left-desktop: 6rem;
+ --spacing-submenu-items: 1.25rem;
+ --spacing-submenu-gap: 4rem;
+ --spacing-submenu-gap-desktop: 6rem;
+ --spacing-footer-top-mobile: 1.875rem;
+ --spacing-footer-bottom: 4.375rem;
+ --spacing-footer-bottom-mobile: 1.25rem;
+ --spacing-footer-gap: 4rem;
+ --spacing-footer-contacts: 2.5rem;
+ --spacing-mobile-padding: 1.25rem;
+ --spacing-desktop: 108rem;
+
+ /* Blur Effects Layout */
+ --spacing-blur-lg: 36.25rem;
+ --spacing-blur-md: 31.4544rem;
+ --spacing-blur-sm: 21.4575rem;
+ --spacing-blur-desktop-top: 45.5625rem;
+ --spacing-blur-desktop-left: 27.9375rem;
+ --spacing-blur-desktop-top-alt: 49.6944rem;
+ --spacing-blur-desktop-left-alt: 48.625rem;
+ --spacing-blur-mobile-top: 35.3125rem;
+ --spacing-blur-mobile-left: -14.1875rem;
+ --spacing-blur-mobile-top-alt: 39.4444rem;
+ --spacing-blur-mobile-left-alt: 6.5rem;
+ 
+ /* Line Heights (Leading) */
+ --spacing-leading-nav: 1.4375rem;
+ --spacing-leading-menu-main: 3.75rem;
+ --spacing-leading-menu-mobile: 1.875rem;
+ --spacing-leading-submenu-desktop: 1.8125rem;
+ --spacing-leading-submenu-site: 2.1875rem;
+ --spacing-leading-submenu-mobile: 1.375rem;
+ --spacing-leading-footer-mobile: 1.0625rem;
+ --spacing-leading-footer-desktop: 1.5rem;
+
+ /* Component-Specific */
+ --blur-menu: 9.375rem;
 }
