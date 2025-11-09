@@ -1,4 +1,9 @@
-export function Header() {
+type HeaderProps = {
+  isMenuOpen: boolean;
+  onToggleMenu: () => void;
+};
+
+export function Header({ isMenuOpen, onToggleMenu }: HeaderProps) {
   return (
     <header className="fixed top-0 left-0 z-50 w-full bg-white">
       <div className="w-full max-w-432 px-5 py-2.5 tablet:px-10 desktop:px-15 desktop:py-7.5 mx-auto">
@@ -30,7 +35,7 @@ export function Header() {
                 </li>
               </ul>
             </nav>
-            <button type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="fullscreen-menu" className="group flex h-9 w-9 flex-col items-center justify-center gap-1.25 overflow-hidden tablet:h-12 tablet:w-12 tablet:gap-1.75 desktop:h-15 desktop:w-15 cursor-pointer">
+            <button type="button" aria-label={isMenuOpen ? "Закрыть меню" : "Открыть меню"} aria-expanded={isMenuOpen} aria-controls="fullscreen-menu" onClick={onToggleMenu} className="group flex h-9 w-9 flex-col items-center justify-center gap-1.25 overflow-hidden tablet:h-12 tablet:w-12 tablet:gap-1.75 desktop:h-15 desktop:w-15 cursor-pointer">
               <span className="block h-0.5 w-13 bg-background transition-all group-hover:-translate-y-0.5 group-hover:bg-black"></span>
               <span className="block h-0.5 w-13 bg-background transition-all group-hover:bg-black"></span>
               <span className="block h-0.5 w-13 bg-background transition-all group-hover:translate-y-0.5 group-hover:bg-black"></span>
