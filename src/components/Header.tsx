@@ -24,6 +24,10 @@ type HeaderProps = {
  * @returns {JSX.Element} The header component.
  */
 export function Header({ isMenuOpen, onToggleMenu }: HeaderProps) {
+    const menuToggleClass = isMenuOpen
+    ? 'translate-x-[30px] opacity-0 pointer-events-none'
+    : 'translate-x-0 opacity-100 pointer-events-auto';
+    
   return (
     <header className="fixed top-0 left-0 z-40 w-full bg-white">
       <div className="w-full max-w-desktop px-5 py-2.5 tablet:px-10 desktop:px-15 desktop:py-7.5 mx-auto">
@@ -70,11 +74,16 @@ export function Header({ isMenuOpen, onToggleMenu }: HeaderProps) {
               aria-expanded={isMenuOpen}
               aria-controls="fullscreen-menu"
               onClick={onToggleMenu}
-              className="group flex h-9 w-9 flex-col items-center justify-center gap-1.25 overflow-hidden tablet:h-12 tablet:w-12 tablet:gap-1.75 desktop:h-15 desktop:w-15 cursor-pointer"
+              className={`
+              group flex h-9 w-9 flex-col items-center justify-center gap-1.25 overflow-hidden 
+              tablet:h-12 tablet:w-12 tablet:gap-1.75 desktop:h-15 desktop:w-15 cursor-pointer 
+              transition-all duration-300 ease-in-out z-50
+              ${menuToggleClass}
+            `}
             >
-              <span className="block h-0.5 w-13 bg-background transition-all group-hover:-translate-y-0.5 group-hover:bg-black"></span>
-              <span className="block h-0.5 w-13 bg-background transition-all group-hover:bg-black"></span>
-              <span className="block h-0.5 w-13 bg-background transition-all group-hover:translate-y-0.5 group-hover:bg-black"></span>
+              <span className="block h-0.5 w-13 bg-background transition-all group-hover:-translate-y-0.5 group-hover:bg-black group-active:-translate-y-0.5 group-active:bg-black"></span>
+              <span className="block h-0.5 w-13 bg-background transition-all group-hover:bg-black group-active:bg-black"></span>
+              <span className="block h-0.5 w-13 bg-background transition-all group-hover:translate-y-0.5 group-hover:bg-black group-active:translate-y-0.5 group-active:bg-black"></span>
             </button>
           </div>
         </div>

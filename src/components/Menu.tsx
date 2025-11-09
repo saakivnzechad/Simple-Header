@@ -231,8 +231,8 @@ export function Menu({ isMenuOpen, onToggleMenu }: MenuProps) {
                 onToggleMenu();
               }}
               className="
-                hidden tablet:flex absolute top-menu-close-top right-menu-close-right z-20
-                h-menu-close w-menu-close cursor-pointer 
+                flex absolute top-menu-close-top-mobile tablet:top-menu-close-top right-menu-close-right-mobile tablet:right-menu-close-right z-20
+                h-menu-close-mobile tablet:h-menu-close w-menu-close-mobile tablet:w-menu-close cursor-pointer 
                 items-center justify-center 
                 group
               "
@@ -242,7 +242,12 @@ export function Menu({ isMenuOpen, onToggleMenu }: MenuProps) {
                 height="28.5"
                 viewBox="0 0 32 32"
                 fill="none"
-                className="font-roboto text-5xl font-thin text-white/80 transition-all group-hover:rotate-90 group-hover:text-white"
+                className={`
+                    font-roboto text-5xl font-thin transition-all duration-300
+                    ${isMenuOpen ? 'rotate-90 text-white' : 'rotate-0 text-white/80'} 
+                    group-hover:rotate-90 group-hover:text-white 
+                    group-active:rotate-90 group-active:text-white
+                `}
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -360,7 +365,7 @@ export function Menu({ isMenuOpen, onToggleMenu }: MenuProps) {
                           </SubLinkItem>
                         ))}
                       </div>
-                      <div className="h-px w-full bg-divider" />
+                      <div className="h-px w-full bg-divider mt-5" />
                     </>
                   )}
                 </li>

@@ -52,10 +52,13 @@
  /* Spacing & Layout */
  --spacing-nav: 1.4375rem;
  --spacing-menu-close-top: 2.125rem;
+ --spacing-menu-close-top-mobile: 1.25rem;
  --spacing-menu-close-right: 1.875rem;
+ --spacing-menu-close-right-mobile: 1.25rem;
  --spacing-menu-close: 2.875rem;
+ --spacing-menu-close-mobile: 2.25rem;
  --spacing-menu-nav-top: 5.0625rem;
- --spacing-menu-nav-top-mobile: 1.25rem;
+ --spacing-menu-nav-top-mobile: 5rem;
  --spacing-menu-nav-right: 3.75rem;
  --spacing-menu-right: 11.25rem;
  --spacing-menu-items: 1.25rem;
