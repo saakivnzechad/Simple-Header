@@ -159,20 +159,20 @@ export function Menu({ isMenuOpen, onToggleMenu }: MenuProps) {
    * Effect to lock body scroll when menu is open and reset states.
    */
   useEffect(() => {
+    const htmlEl = document.documentElement;
+    const bodyEl = document.body;
     if (isMenuOpen) {
-      document.body.style.overflow = "hidden";
-      document.documentElement.style.overflow = "hidden";
-      // Reset states on open
+      bodyEl.style.overflow = "hidden";
+      htmlEl.style.overflow = "hidden";
       setIsServicesOpen(false);
       setActiveLink(null);
     } else {
-      document.body.style.overflow = "unset";
-      document.documentElement.style.overflow = "unset";
+      bodyEl.style.overflow = "unset";
+      htmlEl.style.overflow = "unset";
     }
-    // Cleanup on unmount
     return () => {
-      document.body.style.overflow = "unset";
-      document.documentElement.style.overflow = "unset";
+      bodyEl.style.overflow = "unset";
+      htmlEl.style.overflow = "unset";
     };
   }, [isMenuOpen]);
 
@@ -197,21 +197,21 @@ export function Menu({ isMenuOpen, onToggleMenu }: MenuProps) {
     isEnabled: !isMobile && isMenuOpen,
   });
 
-  useFloatingAnimation({
-    ref: blueMobileRef,
-    seedX: 50,
-    seedY: 60,
-    amplitude: 140,
-    isEnabled: false,
-  });
+  // useFloatingAnimation({
+  //   ref: blueMobileRef,
+  //   seedX: 50,
+  //   seedY: 60,
+  //   amplitude: 140,
+  //   isEnabled: false,
+  // });
 
-  useFloatingAnimation({
-    ref: purpleMobileRef,
-    seedX: 70,
-    seedY: 80,
-    amplitude: 100,
-    isEnabled: false,
-  });
+  // useFloatingAnimation({
+  //   ref: purpleMobileRef,
+  //   seedX: 70,
+  //   seedY: 80,
+  //   amplitude: 100,
+  //   isEnabled: false,
+  // });
 
   /**
    * Handles clicks on mobile submenu links.
@@ -253,15 +253,12 @@ export function Menu({ isMenuOpen, onToggleMenu }: MenuProps) {
       aria-hidden={!isMenuOpen}
       onClick={onToggleMenu}
       className={`
-        fixed inset-0 z-50 w-full
-        bg-background text-white 
-        transition-opacity duration-300 ease-in-out
+        fixed inset-0 z-50 w-full h-dvh bg-background text-white transition-opacity duration-300 ease-in-out
         ${isMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"}
-        overflow-y-auto
       `}
     >
       {/* Background Blurs */}
-      <div className="fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
+      <div className="absolute inset-x-0 z-0 overflow-hidden -top-34 bottom-0" aria-hidden="true">
         <div className="hidden tablet:block">
           <div ref={blueDesktopRef} className="absolute w-blur-lg h-blur-md top-blur-desktop-top left-blur-desktop-left rounded-full bg-blur-blue blur-menu"></div>
           <div ref={purpleDesktopRef} className="absolute w-blur-md h-blur-sm top-blur-desktop-top-alt left-blur-desktop-left-alt rounded-full bg-blur-purple blur-menu"/>
@@ -272,11 +269,9 @@ export function Menu({ isMenuOpen, onToggleMenu }: MenuProps) {
         </div>
       </div>
 
-      {/* Main Content Container */}
-      <div
-        className="relative z-10 flex min-h-screen w-full flex-col justify-start"
-        onClick={!isMobile ? (e) => e.stopPropagation() : undefined}
-      >
+      <div className="relative z-10 w-full h-full overflow-y-auto overscroll-contain">
+        {/* Main Content Container */}
+        <div className="relative z-10 flex min-h-full w-full flex-col justify-start" onClick={!isMobile ? (e) => e.stopPropagation() : undefined}>
         {/* --- Top Section --- */}
         <div className="relative w-full grow flex flex-col">
 
@@ -425,10 +420,7 @@ export function Menu({ isMenuOpen, onToggleMenu }: MenuProps) {
         {/* --- End Top Section --- */}
 
         {/* --- Bottom Section (Footer) --- */}
-        <footer
-          className="mt-auto w-full pb-footer-bottom-mobile tablet:pb-footer-bottom"
-          onClick={isMobile ? (e) => e.stopPropagation() : undefined}
-        >
+        <footer className="mt-auto w-full pb-footer-bottom-mobile tablet:pb-footer-bottom" onClick={isMobile ? (e) => e.stopPropagation() : undefined}>
           <div className="mb-footer-top-mobile tablet:mb-10 h-px w-full bg-divider" />
 
           {/* --- Footer Content --- */}
@@ -469,6 +461,7 @@ export function Menu({ isMenuOpen, onToggleMenu }: MenuProps) {
           </div>
         </footer>
         {/* --- End Bottom Section --- */}
+        </div>
       </div>
     </div>
   );
