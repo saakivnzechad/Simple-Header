@@ -10,8 +10,9 @@
  * directory of this source code.
  */
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import type { MouseEvent, ReactNode } from "react";
+import { useFloatingAnimation } from "./useFloatingAnimation";
 
 /**
  * Renders an arrow SVG icon.
@@ -155,6 +156,43 @@ export function Menu({ isMenuOpen, onToggleMenu }: MenuProps) {
     };
   }, [isMenuOpen]);
 
+    const blueDesktopRef = useRef<HTMLDivElement>(null);
+  const purpleDesktopRef = useRef<HTMLDivElement>(null);
+  const blueMobileRef = useRef<HTMLDivElement>(null);
+  const purpleMobileRef = useRef<HTMLDivElement>(null);
+
+  useFloatingAnimation({
+    ref: blueDesktopRef,
+    seedX: 10,
+    seedY: 20,
+    amplitude: 160,
+    isEnabled: !isMobile && isMenuOpen,
+  });
+
+  useFloatingAnimation({
+    ref: purpleDesktopRef,
+    seedX: 30,
+    seedY: 40,
+    amplitude: 120,
+    isEnabled: !isMobile && isMenuOpen,
+  });
+
+  useFloatingAnimation({
+    ref: blueMobileRef,
+    seedX: 50,
+    seedY: 60,
+    amplitude: 140,
+    isEnabled: isMobile && isMenuOpen,
+  });
+
+  useFloatingAnimation({
+    ref: purpleMobileRef,
+    seedX: 70,
+    seedY: 80,
+    amplitude: 100,
+    isEnabled: isMobile && isMenuOpen,
+  });
+
   /**
    * Handles clicks on mobile submenu links.
    * Prevents default navigation for non-site links and toggles active state.
@@ -199,18 +237,18 @@ export function Menu({ isMenuOpen, onToggleMenu }: MenuProps) {
         bg-background text-white 
         transition-opacity duration-300 ease-in-out
         ${isMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"}
-        overflow-y-auto
+        overflow-y-visible
       `}
     >
       {/* Background Blurs */}
       <div className="fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
         <div className="hidden tablet:block">
-          <div className="absolute w-blur-lg h-blur-md top-blur-desktop-top left-blur-desktop-left rounded-full bg-blur-blue blur-menu" />
-          <div className="absolute w-blur-md h-blur-sm top-blur-desktop-top-alt left-blur-desktop-left-alt rounded-full bg-blur-purple blur-menu" />
+          <div ref={blueDesktopRef} className="absolute w-blur-lg h-blur-md top-blur-desktop-top left-blur-desktop-left rounded-full bg-blur-blue blur-menu"></div>
+          <div ref={purpleDesktopRef} className="absolute w-blur-md h-blur-sm top-blur-desktop-top-alt left-blur-desktop-left-alt rounded-full bg-blur-purple blur-menu"/>
         </div>
         <div className="block tablet:hidden">
-          <div className="absolute w-blur-lg h-blur-md top-blur-mobile-top left-blur-mobile-left rounded-full bg-blur-blue blur-menu" />
-          <div className="absolute w-blur-md h-blur-sm top-blur-mobile-top-alt left-blur-mobile-left-alt rounded-full bg-blur-purple blur-menu" />
+          <div ref={blueMobileRef} className="absolute w-blur-lg h-blur-md top-blur-mobile-top left-blur-mobile-left rounded-full bg-blur-blue blur-menu"/>
+          <div ref={purpleMobileRef} className="absolute w-blur-md h-blur-sm top-blur-mobile-top-alt left-blur-mobile-left-alt rounded-full bg-blur-purple blur-menu"/>
         </div>
       </div>
 
@@ -268,7 +306,7 @@ export function Menu({ isMenuOpen, onToggleMenu }: MenuProps) {
                 <li className="group flex items-center justify-between gap-menu-arrow">
                   <a
                     href="#"
-                    className="transition-colors tablet:group-hover:text-white/70"
+                    className="transition-colors tablet:group-hover:text-white/60"
                   >
                     Услуги
                   </a>
@@ -403,10 +441,10 @@ export function Menu({ isMenuOpen, onToggleMenu }: MenuProps) {
           <div className="mb-footer-top-mobile tablet:mb-10 h-px w-full bg-divider" />
 
           {/* --- Footer Content --- */}
-          <div className="flex flex-col gap-8 text-footer-mobile leading-leading-footer-mobile opacity-60 max-w-desktop mx-auto px-mobile-padding tablet:px-16 tablet:flex-row tablet:items-center tablet:gap-footer-gap tablet:text-footer-desktop tablet:leading-leading-footer-desktop">
-            <span>Москва, ул. Ленина, 12</span>
+          <div className="flex flex-col gap-8 text-footer-mobile leading-leading-footer-mobile opacity-100 max-w-desktop mx-auto px-mobile-padding tablet:px-16 tablet:flex-row tablet:items-center tablet:gap-footer-gap tablet:text-footer-desktop tablet:leading-leading-footer-desktop">
+            <a href="yandexmaps" className="transition-all text-footer opacity-60 hover:opacity-100 active:opacity-100">Москва, ул. Ленина, 12</a>
             <div className="flex flex-col gap-2.5 tablet:flex-row tablet:gap-footer-contacts">
-              <a href="tel:89998888888" className="flex items-center gap-2.5">
+              <a href="tel:89998888888" className="flex items-center gap-2.5 transition-all text-subaccient opacity-60 hover:opacity-100 active:opacity-100">
                 <svg
                   width="15"
                   height="15"
@@ -421,10 +459,7 @@ export function Menu({ isMenuOpen, onToggleMenu }: MenuProps) {
                 </svg>
                 <span>8 (999) 888-88-88</span>
               </a>
-              <a
-                href="mailto:8888@center.ru"
-                className="flex items-center gap-2.5"
-              >
+              <a href="mailto:8888@center.ru" className="flex items-center gap-2.5 transition-all text-subaccient opacity-60 hover:opacity-100 active:opacity-100">
                 <svg
                   width="16"
                   height="12"
