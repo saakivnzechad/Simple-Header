@@ -1,7 +1,7 @@
 /**
  * @file Site header component.
  * @author Danil Klimov
- * @version 1.0.1
+ * @version 1.0.2
  *
  * **MIT License**
  * **Copyright (c) 2025 Danil Klimov**
@@ -10,27 +10,15 @@
  * directory of this source code.
  */
 
-type HeaderProps = {
-  isMenuOpen: boolean;
-  onToggleMenu: () => void;
-};
-
 /**
  * Renders the main site header.
- * Contains the logo, desktop navigation, and menu toggle button.
- * @param {HeaderProps} props - Props for the Header component.
- * @param {boolean} props.isMenuOpen - Indicates if the fullscreen menu is open.
- * @param {() => void} props.onToggleMenu - Callback function to toggle the menu state.
+ * Contains the logo, desktop navigation.
  * @returns {JSX.Element} The header component.
  */
-export function Header({ isMenuOpen, onToggleMenu }: HeaderProps) {
-    const menuToggleClass = isMenuOpen
-    ? 'translate-x-[30px] opacity-0 pointer-events-none'
-    : 'translate-x-0 opacity-100 pointer-events-auto';
-    
+export function Header() {
   return (
     <header className="fixed top-0 left-0 z-40 w-full bg-white">
-      <div className="w-full max-w-desktop px-5 py-2.5 tablet:px-10 desktop:px-15 desktop:py-7.5 mx-auto">
+      <div className="w-full max-w-desktop px-5 py-2.5 desktop:px-15 desktop:py-7.5 mx-auto">
         <div className="flex items-center justify-between">
           <a
             href="/"
@@ -68,23 +56,7 @@ export function Header({ isMenuOpen, onToggleMenu }: HeaderProps) {
                 </li>
               </ul>
             </nav>
-            <button
-              type="button"
-              aria-label={isMenuOpen ? "Закрыть меню" : "Открыть меню"}
-              aria-expanded={isMenuOpen}
-              aria-controls="fullscreen-menu"
-              onClick={onToggleMenu}
-              className={`
-              group flex h-9 w-9 flex-col items-center justify-center gap-1.25 overflow-hidden 
-              tablet:h-12 tablet:w-12 tablet:gap-1.75 desktop:h-15 desktop:w-15 cursor-pointer 
-              transition-all duration-300 ease-in-out z-50
-              ${menuToggleClass}
-            `}
-            >
-              <span className="block h-0.5 w-13 bg-background transition-all group-hover:-translate-y-0.5 group-hover:bg-black group-active:-translate-y-0.5 group-active:bg-black"></span>
-              <span className="block h-0.5 w-13 bg-background transition-all group-hover:bg-black group-active:bg-black"></span>
-              <span className="block h-0.5 w-13 bg-background transition-all group-hover:translate-y-0.5 group-hover:bg-black group-active:translate-y-0.5 group-active:bg-black"></span>
-            </button>
+            <div id="button-wrapper" className="size-9 tablet:size-12 desktop:size-15"></div>
           </div>
         </div>
       </div>

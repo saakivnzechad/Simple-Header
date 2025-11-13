@@ -1,7 +1,7 @@
 /**
  * @file Fullscreen menu component and its sub-components.
  * @author Danil Klimov
- * @version 1.0.0
+ * @version 1.0.2
  *
  * **MIT License**
  * **Copyright (c) 2025 Danil Klimov**
@@ -40,6 +40,16 @@ function ArrowIcon({ className }: { className?: string }) {
   );
 }
 
+/**
+ * Props for the SubLinkItem component.
+ * @typedef {object} SubLinkProps
+ * @property {string} href - The URL the link points to.
+ * @property {ReactNode} children - The content to be displayed inside the link.
+ * @property {"default" | "site"} [variant] - Style variant of the link.
+ * @property {boolean} isMobile - Indicates if the current viewport is mobile.
+ * @property {boolean} [isActive] - Indicates if the link is currently active (mobile only).
+ * @property {(e: MouseEvent) => void} [onClick] - Click handler.
+ */
 type SubLinkProps = {
   href: string;
   children: ReactNode;
@@ -68,7 +78,7 @@ function SubLinkItem({
 
   const sizeClasses = isMobile
     ? isLarge
-      ? "text-submenu-site leading-leading-submenu-site"
+      ? "text-2xl leading-[1.1]"
       : "text-lg leading-leading-submenu-mobile"
     : isLarge
     ? "text-submenu-site leading-leading-submenu-site"
@@ -77,7 +87,7 @@ function SubLinkItem({
   const arrowClasses = isMobile
     ? isActive
       ? "w-4 opacity-100 mr-2.5"
-      : "w-0 opacity-0 mr-0"
+      : "w-0 opacity-0 mr-0 group-hover:w-4 group-hover:opacity-100 group-hover:mr-2.5"
     : "w-0 opacity-0 tablet:group-hover:w-4 tablet:group-hover:opacity-100 tablet:group-hover:mr-2.5";
 
   const buttonClasses = isMobile
@@ -90,7 +100,7 @@ function SubLinkItem({
     <a
       href={href}
       onClick={onClick}
-      className={`${baseClasses} ${sizeClasses} ${!isMobile ? "group" : ""}`}
+      className={`${baseClasses} ${sizeClasses} group active:text-white/70`}
     >
       <ArrowIcon
         className={`shrink-0 transition-all duration-300 ${arrowClasses}`}
@@ -107,6 +117,12 @@ function SubLinkItem({
   );
 }
 
+/**
+ * Props for the Menu component.
+ * @typedef {object} MenuProps
+ * @property {boolean} isMenuOpen - Indicates if the fullscreen menu is open.
+ * @property {() => void} onToggleMenu - Callback function to toggle the menu state.
+ */
 type MenuProps = {
   isMenuOpen: boolean;
   onToggleMenu: () => void;
@@ -156,7 +172,7 @@ export function Menu({ isMenuOpen, onToggleMenu }: MenuProps) {
     };
   }, [isMenuOpen]);
 
-    const blueDesktopRef = useRef<HTMLDivElement>(null);
+  const blueDesktopRef = useRef<HTMLDivElement>(null);
   const purpleDesktopRef = useRef<HTMLDivElement>(null);
   const blueMobileRef = useRef<HTMLDivElement>(null);
   const purpleMobileRef = useRef<HTMLDivElement>(null);
@@ -237,7 +253,7 @@ export function Menu({ isMenuOpen, onToggleMenu }: MenuProps) {
         bg-background text-white 
         transition-opacity duration-300 ease-in-out
         ${isMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"}
-        overflow-y-visible
+        overflow-y-auto
       `}
     >
       {/* Background Blurs */}
@@ -259,45 +275,6 @@ export function Menu({ isMenuOpen, onToggleMenu }: MenuProps) {
       >
         {/* --- Top Section --- */}
         <div className="relative w-full grow flex flex-col">
-          {/* --- Close Button Block --- */}
-          <div className="relative w-full max-w-desktop mx-auto">
-            <button
-              type="button"
-              aria-label="Закрыть меню"
-              onClick={(e) => {
-                e.stopPropagation();
-                onToggleMenu();
-              }}
-              className="
-                flex absolute top-menu-close-top-mobile tablet:top-menu-close-top right-menu-close-right-mobile tablet:right-menu-close-right z-20
-                h-menu-close-mobile tablet:h-menu-close w-menu-close-mobile tablet:w-menu-close cursor-pointer 
-                items-center justify-center 
-                group
-              "
-            >
-              <svg
-                width="28.5"
-                height="28.5"
-                viewBox="0 0 32 32"
-                fill="none"
-                className={`
-                    font-roboto text-5xl font-thin transition-all duration-300
-                    ${isMenuOpen ? 'rotate-90 text-white' : 'rotate-0 text-white/80'} 
-                    group-hover:rotate-90 group-hover:text-white 
-                    group-active:rotate-90 group-active:text-white
-                `}
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M1.15002 1.15L15.525 15.525M29.9 29.9L15.525 15.525M15.525 15.525L29.9 1.15L1.15002 29.9"
-                  stroke="white"
-                  strokeWidth="2.3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
-          </div>
 
           {/* --- Desktop Navigation --- */}
           <div className="hidden h-full grow tablet:grid grid-cols-[auto_1fr] desktop:grid-cols-[637px_1fr] max-w-desktop mx-auto w-full pl-16 pr-menu-right">
@@ -306,7 +283,7 @@ export function Menu({ isMenuOpen, onToggleMenu }: MenuProps) {
                 <li className="group flex items-center justify-between gap-menu-arrow">
                   <a
                     href="#"
-                    className="transition-colors tablet:group-hover:text-white/60"
+                    className="transition-colors tablet:group-hover:text-white/60 active:text-white/60"
                   >
                     Услуги
                   </a>
@@ -315,7 +292,7 @@ export function Menu({ isMenuOpen, onToggleMenu }: MenuProps) {
                 <li>
                   <a
                     href="#"
-                    className="transition-colors tablet:hover:text-white/70"
+                    className="transition-colors tablet:hover:text-white/70 active:text-white/70"
                   >
                     Экскурсии
                   </a>
@@ -323,7 +300,7 @@ export function Menu({ isMenuOpen, onToggleMenu }: MenuProps) {
                 <li>
                   <a
                     href="#"
-                    className="transition-colors tablet:hover:text-white/70"
+                    className="transition-colors tablet:hover:text-white/70 active:text-white/70"
                   >
                     О центре
                   </a>
@@ -331,7 +308,7 @@ export function Menu({ isMenuOpen, onToggleMenu }: MenuProps) {
                 <li>
                   <a
                     href="#"
-                    className="transition-colors tablet:hover:text-white/70"
+                    className="transition-colors tablet:hover:text-white/70 active:text-white/70"
                   >
                     Новости
                   </a>
@@ -339,7 +316,7 @@ export function Menu({ isMenuOpen, onToggleMenu }: MenuProps) {
                 <li>
                   <a
                     href="#"
-                    className="transition-colors tablet:hover:text-white/70"
+                    className="transition-colors tablet:hover:text-white/70 active:text-white/70"
                   >
                     Контакты
                   </a>
@@ -349,7 +326,7 @@ export function Menu({ isMenuOpen, onToggleMenu }: MenuProps) {
 
             {/* --- Desktop Submenu (Right Column) --- */}
             <div className="flex h-full w-full shrink-0 flex-col gap-submenu-gap border-l border-divider pl-submenu-left pt-submenu-top pb-10 desktop:gap-submenu-gap-desktop desktop:pl-submenu-left-desktop">
-              <div className="flex w-full flex-col gap-submenu-items font-inter">
+              <div className="flex w-full flex-col gap-submenu-items-mobile tablet:gap-submenu-items font-inter">
                 {subLinks.map((link) => (
                   <SubLinkItem
                     key={link.title}
@@ -378,7 +355,7 @@ export function Menu({ isMenuOpen, onToggleMenu }: MenuProps) {
                       setIsServicesOpen(!isServicesOpen);
                     }}
                     aria-expanded={isServicesOpen}
-                    className="flex w-full items-center justify-between gap-menu-arrow"
+                    className="flex w-full items-center justify-between gap-menu-arrow transition-colors hover:text-white/60 active:text-white/60"
                   >
                     <span>Услуги</span>
                     <ArrowIcon
@@ -408,22 +385,22 @@ export function Menu({ isMenuOpen, onToggleMenu }: MenuProps) {
                   )}
                 </li>
                 <li>
-                  <a href="#" className="block pb-5">
+                  <a href="#" className="block pb-5 transition-colors hover:text-white/70 active:text-white/70">
                     Экскурсии
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="block pb-5">
+                  <a href="#" className="block pb-5 transition-colors hover:text-white/70 active:text-white/70">
                     О центре
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="block pb-5">
+                  <a href="#" className="block pb-5 transition-colors hover:text-white/70 active:text-white/70">
                     Новости
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="block pb-5">
+                  <a href="#" className="block pb-5 transition-colors hover:text-white/70 active:text-white/70">
                     Контакты
                   </a>
                 </li>

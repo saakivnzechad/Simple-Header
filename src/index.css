@@ -1,7 +1,7 @@
 /**
  * @file Global styles and Tailwind theme definitions.
  * @author Danil Klimov
- * @version 1.0.1
+ * @version 1.0.3
  *
  * MIT License
  * Copyright (c) 2025 Danil Klimov
@@ -68,6 +68,7 @@
  --spacing-submenu-left: 4rem;
  --spacing-submenu-left-desktop: 6rem;
  --spacing-submenu-items: 1.25rem;
+ --spacing-submenu-items-mobile: 1rem;
  --spacing-submenu-gap: 4rem;
  --spacing-submenu-gap-desktop: 6rem;
  --spacing-footer-top-mobile: 1.875rem;
