@@ -202,7 +202,7 @@ export function Menu({ isMenuOpen, onToggleMenu }: MenuProps) {
     seedX: 50,
     seedY: 60,
     amplitude: 140,
-    isEnabled: isMobile && isMenuOpen,
+    isEnabled: false,
   });
 
   useFloatingAnimation({
@@ -210,7 +210,7 @@ export function Menu({ isMenuOpen, onToggleMenu }: MenuProps) {
     seedX: 70,
     seedY: 80,
     amplitude: 100,
-    isEnabled: isMobile && isMenuOpen,
+    isEnabled: false,
   });
 
   /**
