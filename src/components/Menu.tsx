@@ -1,7 +1,7 @@
 /**
  * @file Fullscreen menu component and its sub-components.
  * @author Danil Klimov
- * @version 1.0.2
+ * @version 1.0.3
  *
  * **MIT License**
  * **Copyright (c) 2025 Danil Klimov**
@@ -12,6 +12,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import type { MouseEvent, ReactNode } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useFloatingAnimation } from "./useFloatingAnimation";
 
 /**
@@ -160,15 +161,18 @@ export function Menu({ isMenuOpen, onToggleMenu }: MenuProps) {
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
       // Reset states on open
       setIsServicesOpen(false);
       setActiveLink(null);
     } else {
       document.body.style.overflow = "unset";
+      document.documentElement.style.overflow = "unset";
     }
     // Cleanup on unmount
     return () => {
       document.body.style.overflow = "unset";
+      document.documentElement.style.overflow = "unset";
     };
   }, [isMenuOpen]);
 
@@ -270,7 +274,7 @@ export function Menu({ isMenuOpen, onToggleMenu }: MenuProps) {
 
       {/* Main Content Container */}
       <div
-        className="relative z-10 flex min-h-dvh w-full flex-col justify-start"
+        className="relative z-10 flex min-h-screen w-full flex-col justify-start"
         onClick={!isMobile ? (e) => e.stopPropagation() : undefined}
       >
         {/* --- Top Section --- */}
@@ -364,25 +368,35 @@ export function Menu({ isMenuOpen, onToggleMenu }: MenuProps) {
                       }`}
                     />
                   </button>
-                  {isServicesOpen && (
-                    <>
-                      <div className="flex flex-col gap-4 py-5">
-                        {subLinks.map((link) => (
-                          <SubLinkItem
-                            key={link.title}
-                            href="#"
-                            variant={link.variant}
-                            isActive={activeLink === link.title}
-                            onClick={(e) => handleSublinkClick(e, link.title)}
-                            isMobile={true}
-                          >
-                            {link.title}
-                          </SubLinkItem>
-                        ))}
-                      </div>
-                      <div className="h-px w-full bg-divider mt-5" />
-                    </>
-                  )}
+
+                  <AnimatePresence>
+                    {isServicesOpen && (
+                      <motion.div
+                        key="submenu-content"
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                        className="overflow-hidden"
+                      >
+                        <div className="flex flex-col gap-4 py-5">
+                          {subLinks.map((link) => (
+                            <SubLinkItem
+                              key={link.title}
+                              href="#"
+                              variant={link.variant}
+                              isActive={activeLink === link.title}
+                              onClick={(e) => handleSublinkClick(e, link.title)}
+                              isMobile={true}
+                            >
+                              {link.title}
+                            </SubLinkItem>
+                          ))}
+                        </div>
+                        <div className="h-px w-full bg-divider mt-5" />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </li>
                 <li>
                   <a href="#" className="block pb-5 transition-colors hover:text-white/70 active:text-white/70">
